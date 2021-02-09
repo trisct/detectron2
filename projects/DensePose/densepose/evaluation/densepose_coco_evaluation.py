@@ -23,9 +23,8 @@ from scipy.ndimage import zoom as spzoom
 
 from detectron2.utils.file_io import PathManager
 
+from densepose.data.structures import DensePoseDataRelative
 from densepose.structures.mesh import create_mesh
-
-from .data.structures import DensePoseDataRelative
 
 logger = logging.getLogger(__name__)
 
@@ -315,7 +314,7 @@ class DensePoseCocoEval(object):
             computeIoU = self.computeOks
         elif p.iouType == "densepose":
             computeIoU = self.computeOgps
-            if self._dpEvalMode == DensePoseEvalMode.GPSM:
+            if self._dpEvalMode in {DensePoseEvalMode.GPSM, DensePoseEvalMode.IOU}:
                 self.real_ious = {
                     (imgId, catId): self.computeDPIoU(imgId, catId)
                     for imgId in p.imgIds
@@ -697,7 +696,7 @@ class DensePoseCocoEval(object):
                 if len(self.ious[imgId, catId]) > 0
                 else self.ious[imgId, catId]
             )
-            if self._dpEvalMode == DensePoseEvalMode.GPSM:
+            if self._dpEvalMode in {DensePoseEvalMode.GPSM, DensePoseEvalMode.IOU}:
                 iousM = (
                     self.real_ious[imgId, catId][:, gtind]
                     if len(self.real_ious[imgId, catId]) > 0

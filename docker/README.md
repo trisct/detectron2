@@ -14,9 +14,9 @@ docker run --gpus all -it \
 xhost +local:`docker inspect --format='{{ .Config.Hostname }}' detectron2`
 ```
 
-## Use the container (with docker < 19.03)
+## Use the container (with docker-compose ≥ 1.28.0)
 
-Install docker-compose and nvidia-docker2, then run:
+Install docker-compose and nvidia-docker-toolkit, then run:
 ```
 cd docker && USER_ID=$UID docker-compose run detectron2
 ```
@@ -25,7 +25,7 @@ cd docker && USER_ID=$UID docker-compose run detectron2
 After building the base detectron2 container as above, do:
 ```
 # Build:
-docker build -t detectron2-deploy:v0 -f deploy.Dockerfile
+docker build -t detectron2-deploy:v0 -f deploy.Dockerfile .
 # Launch:
 docker run --gpus all -it detectron2-deploy:v0
 ```

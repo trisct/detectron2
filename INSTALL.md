@@ -1,15 +1,10 @@
 ## Installation
 
-Our [Colab Notebook](https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5)
-has step-by-step instructions that install detectron2.
-The [Dockerfile](docker)
-also installs detectron2 with a few simple commands.
-
 ### Requirements
 - Linux or macOS with Python ≥ 3.6
 - PyTorch ≥ 1.5 and [torchvision](https://github.com/pytorch/vision/) that matches the PyTorch installation.
-  You can install them together at [pytorch.org](https://pytorch.org) to make sure of this
-- OpenCV is optional and needed by demo and visualization
+  Install them together at [pytorch.org](https://pytorch.org) to make sure of this
+- OpenCV is optional but needed by demo and visualization
 
 
 ### Build Detectron2 from Source
@@ -25,7 +20,7 @@ git clone https://github.com/facebookresearch/detectron2.git
 python -m pip install -e detectron2
 
 # Or if you are on macOS
-CC=clang CXX=clang++ python -m pip install ......
+CC=clang CXX=clang++ ARCHFLAGS="-arch x86_64" python -m pip install ......
 ```
 
 To __rebuild__ detectron2 that's built from a local clone, use `rm -rf build/ **/*.so` to clean the
@@ -241,3 +236,12 @@ The ONNX package is compiled with a too old compiler.
 Please build and install ONNX from its source code using a compiler
 whose version is closer to what's used by PyTorch (available in `torch.__config__.show()`).
 </details>
+
+
+### Installation inside specific environments:
+
+* __Colab__: see our [Colab Tutorial](https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5)
+  which has step-by-step instructions.
+
+* __Docker__: The official [Dockerfile](docker) installs detectron2 with a few simple commands.
+
